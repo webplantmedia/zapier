@@ -125,7 +125,8 @@ class Zapier_Auth
 		);
 
 		return array(
-			'token' => JWT::encode($token, $secret_key, 'HS256'), // needed to add a third argument because it broke JWT graphql auth plugin.
+			// Needed to add a third argument because it broke JWT graphql auth plugin.
+			'token' => JWT::encode($token, $secret_key, 'HS256'),
 		);
 	}
 
