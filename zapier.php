@@ -9,9 +9,10 @@
  * License:           Expat (MIT License)
  * License URI:       https://spdx.org/licenses/MIT.html
  */
-require_once dirname(__FILE__) . '/vendor/autoload.php';
+// require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 
 class Zapier_Auth_Loader
@@ -136,8 +137,7 @@ class Zapier_Auth
 			JWT::$leeway = 240; // $leeway in seconds
 			$token = JWT::decode(
 				$_SERVER['HTTP_X_ZAPIER_AUTH'],
-				get_option('zapier_secret'),
-				array('HS256')
+				new Key(get_option('zapier_secret'), 'HS256')
 			);
 
 			if ($token->iss != get_bloginfo('url')) {
